@@ -1,0 +1,11 @@
+server:
+  port: 8083
+spring:
+  rabbitmq:
+    host: 192.168.93.139
+    port: 5672
+    username: xiaohe
+    password: 123456
+    listener:
+      simple:
+        acknowledge-mode: manual
