@@ -1,0 +1,8 @@
+server:
+  port: 8045
+spring:
+  rabbitmq:
+    host: 192.168.93.140
+    port: 5672
+    username: xiaohe
+    password: 123456
