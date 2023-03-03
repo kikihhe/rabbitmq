@@ -16,9 +16,7 @@ class DlxApplicationTests {
 
     @Test
     void contextLoads() {
-
         rabbitTemplate.convertAndSend(RabbitMQConfig.MESSAGE_EXCHANGE_NAME, "user.insert","你好,死信队列");
-
     }
 
 }
