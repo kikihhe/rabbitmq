@@ -1,23 +1,31 @@
-package com.xiaohe.consumer.config;
+package com.xiaohe.publish.config;
 
+import com.rabbitmq.client.Channel;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.amqp.AmqpException;
 import org.springframework.amqp.rabbit.connection.Connection;
 import org.springframework.amqp.rabbit.connection.ConnectionFactory;
-import org.springframework.amqp.rabbit.connection.ConnectionListener;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-
-import java.util.Random;
 
 @Slf4j
 @Configuration
 public class RabbitConfig {
+    @Autowired
+    private ConnectionFactory connectionFactory;
+
+    public void a() {
+        Channel channel = connectionFactory.createConnection().createChannel(true);
+//        channel.
+    }
+
+
     @Bean
     public RabbitTemplate rabbitTemplate(ConnectionFactory connectionFactory) {
         RabbitTemplate rabbitTemplate = new RabbitTemplate();
         rabbitTemplate.setConnectionFactory(connectionFactory);
+        rabbitTemplate.convertAndSend();
         /*设置开启Mandatory才能触发回调函数，无论消息推送结果怎么样都强制调用回调函数*/
         rabbitTemplate.setMandatory(true);
 
@@ -30,6 +38,7 @@ public class RabbitConfig {
          * cause: 消息接收不到原因，成功接收消息则为null
          */
         rabbitTemplate.setConfirmCallback((correlationData, ack, cause) -> {
+
             // 打印日志
             log.info("ConfirmCallback：" + "相关数据：" + correlationData);
             log.info("ConfirmCallback：" + "确认情况：" + ack);

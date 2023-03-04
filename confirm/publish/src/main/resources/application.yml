@@ -1,0 +1,19 @@
+server:
+  port: 8081
+spring:
+  application:
+    name: publish
+ rabbitmq:
+   host: 47.109.60.208
+   port: 5672
+   username: rabbitmq
+   password: rabbitmq
+   # publisher-confirm-type有三种配置:
+   # 1. simple: 简单的执行ack的判断，在发布消息成功后使用 rabbitTemplate调用waitForConfirms或者waitForConfirmsOrDie方法等待broker
+   #    节点返回发送结果，根据返回结果来判断下一步的逻辑。但是要注意的是当 waitForConfirmsOrDie 方法如果返回false则会关闭channel。
+   #     (同步confirm，性能较差)
+   # 2. correlated: 执行ack的时候还会携带消息的元数据
+   # 3. none: 禁用发布确认模式，默认值
+   publisher-confirm-type: correlated
+   publisher-returns: true
+
